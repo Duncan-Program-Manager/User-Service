@@ -34,12 +34,11 @@ public class UserController {
     @PostMapping(value = UserEndpoints.UPDATEUSER, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateUser(@RequestBody UserDTO dto)
     {
-        if(userService.UpdateUser(dto))
-        {
+        try {
+            userService.UpdateUser(dto);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (AccountNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
-        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
-
-
 }

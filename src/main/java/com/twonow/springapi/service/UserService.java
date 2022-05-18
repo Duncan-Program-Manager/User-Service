@@ -24,8 +24,7 @@ public class UserService {
         throw new AccountNotFoundException("Account not found");
     }
 
-    public boolean UpdateUser(UserDTO dto)
-    {
+    public void UpdateUser(UserDTO dto) throws AccountNotFoundException {
         if(userRepository.findById(dto.getId()).isPresent()) {
             userRepository.deleteById(dto.getId());
             User user = new User();
@@ -33,8 +32,21 @@ public class UserService {
             user.setEmail(dto.getEmail());
             user.setId(dto.getId());
             userRepository.save(user);
-            return true;
         }
-        return false;
+        throw new AccountNotFoundException("account not registered");
+    }
+
+    public void CreateUser(UserDTO dto)
+    {
+        User user = new User();
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setId(dto.getId());
+        userRepository.save(user);
+    }
+
+    public void testCall()
+    {
+        System.out.println("SERVICE CONNECTION WORKS");
     }
 }

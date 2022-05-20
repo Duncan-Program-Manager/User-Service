@@ -1,6 +1,9 @@
 server:
-    port: 8123
+    port: 8083
 spring:
+  rabbitmq:
+    host: "localhost"
+    port: 5672
   datasource:
     url: "jdbc:mysql://82.73.212.90:3307/dpm"
     username: "2nowabout"

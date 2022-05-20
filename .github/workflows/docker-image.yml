@@ -20,7 +20,7 @@ jobs:
       with:        
         java-version: 1.11
     - name: Build with Maven      
-      run: mvn package
+      run: mvn package -f ../pom.xml
     - name: Docker build
       run: docker build . --tag registry.vimuens.nl/user-api:latest
     - name: Publish to Docker Registry

@@ -18,7 +18,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: userservice
-          image: registry.vimuens.nl/user-api:1.0.0
+          image: registry.vimuens.nl/user-api:1.0.0 # {"$image-policy": "flux-system:user-api-policy"}
           imagePullPolicy: Always
           env:
             - name: server.port

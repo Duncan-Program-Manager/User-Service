@@ -41,4 +41,11 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+    @PostMapping(value = UserEndpoints.DELETEUSER, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteUser(@RequestBody UserDTO dto)
+    {
+        userService.DeleteUser(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

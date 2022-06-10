@@ -1,5 +1,6 @@
 package com.twonow.springapi.rabbitmq;
 
+import com.twonow.springapi.dto.UserDTO;
 import com.twonow.springapi.service.UserService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,6 +12,8 @@ import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class RabbitMQReciever implements RabbitListenerConfigurer {
 
@@ -20,7 +23,7 @@ public class RabbitMQReciever implements RabbitListenerConfigurer {
     @Override
     public void configureRabbitListeners(RabbitListenerEndpointRegistrar rabbitListenerEndpointRegistrar) {
     }
-    @RabbitListener(queues = "${rabbitmq.queue}")
+    @RabbitListener(queues = "${rabbitmq.inputqueue}")
     public void receivedMessage(Message message) {
         JSONParser parser = new JSONParser();
         JSONObject json = null;
@@ -30,11 +33,18 @@ public class RabbitMQReciever implements RabbitListenerConfigurer {
             e.printStackTrace();
         }
         System.out.println(json);
-        if(json.get("test").equals("test"))
+        switch (json.get("method").toString())
         {
-            System.out.println("TEST COMPLETE");
-            userService.testCall();
-        }
+            case "newUser":
+                JSONObject userInfo = (JSONObject) json.get("data");
+                UserDTO dto = new UserDTO((UUID) userInfo.get("uuid"), userInfo.get("username").toString(), userInfo.get("email").toString());
+                userService.CreateUser(dto);
+                break;
 
+            case "test":
+                System.out.println("TEST COMPLETE");
+                userService.testCall();
+                break;
+        }
     }
 }

@@ -16,10 +16,6 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-/*@EnableGlobalMethodSecurity(
-        prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true)*/
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -28,9 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/*").authenticated()
-                .antMatchers("/auth/**").permitAll()
                 .antMatchers("/user/**").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
                 .and()
                 .cors()
                 .and()

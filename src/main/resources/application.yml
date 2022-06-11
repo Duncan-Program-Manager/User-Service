@@ -10,3 +10,6 @@ spring:
     url: "jdbc:mysql://82.73.212.90:3307/dpm_users"
     username: "2nowabout"
     password: "SecurePassword1!"
+  jpa:
+    hibernate:
+      ddl-auto: update

@@ -37,7 +37,7 @@ public class RabbitMQReciever implements RabbitListenerConfigurer {
         {
             case "newUser":
                 JSONObject userInfo = (JSONObject) json.get("data");
-                UserDTO dto = new UserDTO((UUID) userInfo.get("uuid"), userInfo.get("username").toString(), userInfo.get("email").toString());
+                UserDTO dto = new UserDTO(UUID.fromString((String) userInfo.get("uuid")), userInfo.get("username").toString(), userInfo.get("email").toString());
                 userService.CreateUser(dto);
                 break;
 

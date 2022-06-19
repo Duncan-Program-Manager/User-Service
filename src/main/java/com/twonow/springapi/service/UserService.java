@@ -75,6 +75,7 @@ public class UserService {
         JSONObject userInfo = new JSONObject();
         fulljson.put("method", "Delete User");
         userInfo.put("username", dto.getUsername());
+        userInfo.put("email", dto.getEmail());
         fulljson.put("data", userInfo);
         rabbitMQSender.send(new Message(fulljson.toJSONString().getBytes(StandardCharsets.UTF_8)));
         userRepository.deleteById(dto.getId());

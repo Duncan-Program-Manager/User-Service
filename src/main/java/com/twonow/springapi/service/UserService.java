@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.springframework.amqp.core.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.nio.charset.StandardCharsets;
@@ -69,6 +70,7 @@ public class UserService {
         rabbitMQSender.send(new Message(fullJson.toJSONString().getBytes(StandardCharsets.UTF_8)));
     }
 
+    @Transactional
     public void DeleteUser(UserDTO dto)
     {
         JSONObject fulljson = new JSONObject();
